@@ -1,14 +1,13 @@
 package database.doktalk.domain.worldcup.entity;
 
 import database.doktalk.common.global.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +21,9 @@ public class WorldCup extends BaseEntity {
     private Long id;
 
     private String subject;
+
+    @OneToMany(mappedBy = "worldCup", cascade = CascadeType.ALL)
+    private List<WorldCupMatch> matches;
 
 
 }
