@@ -22,6 +22,7 @@ public enum ErrorCode {
     //worldCup
     WORLD_CUP_NOT_FOUND(HttpStatus.NOT_FOUND,"WORLD_CUP401","월드컵을 찾을 수 없습니다.");
 
+
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;

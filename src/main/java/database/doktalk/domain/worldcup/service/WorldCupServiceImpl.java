@@ -8,6 +8,7 @@ import database.doktalk.domain.worldcup.dto.request.NextRoundRequest;
 import database.doktalk.domain.worldcup.dto.request.WorldCupRequest;
 import database.doktalk.domain.worldcup.dto.response.BookSummaryResponse;
 import database.doktalk.domain.worldcup.dto.response.RoundResponse;
+import database.doktalk.domain.worldcup.dto.response.MatchIdResponse;
 import database.doktalk.domain.worldcup.dto.response.WorldCupIdResponse;
 import database.doktalk.domain.worldcup.entity.WorldCup;
 import database.doktalk.domain.worldcup.entity.WorldCupMatch;
@@ -75,7 +76,6 @@ public class WorldCupServiceImpl implements WorldCupService {
         worldCupMatchRepository.save(newMatch);
     }
 }
-
 
 
 
