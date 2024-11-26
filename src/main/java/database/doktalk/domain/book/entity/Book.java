@@ -29,6 +29,8 @@ public class Book extends BaseEntity{
 
     private String genre;
 
+    private String coverImage;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Journal journal;
