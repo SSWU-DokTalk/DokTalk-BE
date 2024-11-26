@@ -3,8 +3,10 @@ package database.doktalk.domain.user.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserSignUpRequest {
@@ -12,5 +14,6 @@ public class UserSignUpRequest {
     private String password;
     private String name;
     private String phoneNumber;
-    //TODO 프로필 이미지 추가하기
+    private String imageUrl; //TODO 프로필 이미지 추가하기
 }
+
