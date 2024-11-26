@@ -1,7 +1,6 @@
-package database.doktalk.domain.journal.entity;
+package database.doktalk.domain.review;
 
-import database.doktalk.common.global.BaseEntity;
-import database.doktalk.domain.book.entity.Book;
+import database.doktalk.domain.discussion.entity.Discussion;
 import database.doktalk.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,30 +9,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Journal extends BaseEntity {
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    private String review;
 
-    private String content;
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     private int likeCount = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
-    private User user;
+    private Discussion discussion;
 
-    @OneToMany(mappedBy =  "journal",fetch = FetchType.LAZY)
-    private List<Book> books = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
 }
