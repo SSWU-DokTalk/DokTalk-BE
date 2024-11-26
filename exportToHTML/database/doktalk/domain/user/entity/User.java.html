@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>User.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #2aacb8;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+User.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">database</span><span class="s2">.</span><span class="s1">doktalk</span><span class="s2">.</span><span class="s1">domain</span><span class="s2">.</span><span class="s1">user</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">database</span><span class="s2">.</span><span class="s1">doktalk</span><span class="s2">.</span><span class="s1">common</span><span class="s2">.</span><span class="s1">global</span><span class="s2">.</span><span class="s1">BaseEntity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">database</span><span class="s2">.</span><span class="s1">doktalk</span><span class="s2">.</span><span class="s1">domain</span><span class="s2">.</span><span class="s1">user</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">UserImage</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">database</span><span class="s2">.</span><span class="s1">doktalk</span><span class="s2">.</span><span class="s1">domain</span><span class="s2">.</span><span class="s1">discussion</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Vote</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">jakarta</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">lombok</span><span class="s2">.</span><span class="s1">AllArgsConstructor</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">lombok</span><span class="s2">.</span><span class="s1">Builder</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">lombok</span><span class="s2">.</span><span class="s1">Getter</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">lombok</span><span class="s2">.</span><span class="s1">NoArgsConstructor</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s1">@Entity</span>
+<span class="s1">@Getter</span>
+<span class="s1">@NoArgsConstructor</span>
+<span class="s1">@Builder</span>
+<span class="s1">@AllArgsConstructor</span>
+<span class="s0">public class </span><span class="s1">User </span><span class="s0">extends </span><span class="s1">BaseEntity </span><span class="s2">{</span>
+
+    <span class="s1">@Id</span>
+    <span class="s1">@GeneratedValue</span><span class="s2">(</span><span class="s1">strategy </span><span class="s2">= </span><span class="s1">GenerationType</span><span class="s2">.</span><span class="s1">IDENTITY</span><span class="s2">)</span>
+    <span class="s0">private </span><span class="s1">Long Id</span><span class="s2">; </span><span class="s3">//사용자 PK</span>
+
+    <span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">, </span><span class="s1">unique </span><span class="s2">= </span><span class="s0">true</span><span class="s2">, </span><span class="s1">length </span><span class="s2">= </span><span class="s4">50</span><span class="s2">)</span>
+    <span class="s0">private </span><span class="s1">String userId</span><span class="s2">; </span><span class="s3">// 사용자 아이디</span>
+
+    <span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+    <span class="s0">private </span><span class="s1">String password</span><span class="s2">; </span><span class="s3">// 비밀번호</span>
+
+    <span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">, </span><span class="s1">length </span><span class="s2">= </span><span class="s4">100</span><span class="s2">)</span>
+    <span class="s0">private </span><span class="s1">String name</span><span class="s2">; </span><span class="s3">// 사용자 이름</span>
+
+    <span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">, </span><span class="s1">length </span><span class="s2">= </span><span class="s4">15</span><span class="s2">)</span>
+    <span class="s0">private </span><span class="s1">String phoneNumber</span><span class="s2">; </span><span class="s3">// 전화번호</span>
+
+    <span class="s1">@OneToOne</span><span class="s2">(</span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">)</span>
+    <span class="s0">private </span><span class="s1">UserImage image</span><span class="s2">;</span>
+
+    <span class="s1">@OneToMany</span><span class="s2">(</span><span class="s1">mappedBy </span><span class="s2">= </span><span class="s5">&quot;user&quot;</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">)</span>
+    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Vote</span><span class="s2">&gt; </span><span class="s1">votes </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+
+    <span class="s3">// Getter and Setter</span>
+    <span class="s0">public </span><span class="s1">Long getId</span><span class="s2">(){</span>
+        <span class="s0">return </span><span class="s1">id</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setUserId</span><span class="s2">(</span><span class="s1">Long id</span><span class="s2">){</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">id</span><span class="s2">=</span><span class="s1">id</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getUserId</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">userId</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setUserId</span><span class="s2">(</span><span class="s1">String userId</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">userId </span><span class="s2">= </span><span class="s1">userId</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public </span><span class="s1">String getPassword</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">password</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setPassword</span><span class="s2">(</span><span class="s1">String password</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">password </span><span class="s2">= </span><span class="s1">password</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getName</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">name</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setName</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getPhoneNumber</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">phoneNumber</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setPhoneNumber</span><span class="s2">(</span><span class="s1">String phoneNumber</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">phoneNumber </span><span class="s2">= </span><span class="s1">phoneNumber</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public </span><span class="s1">UserImage getImage</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">image</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setImage</span><span class="s2">(</span><span class="s1">UserImage image</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">image </span><span class="s2">= </span><span class="s1">image</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Vote</span><span class="s2">&gt; </span><span class="s1">getVotes</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">votes</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setVotes</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Vote</span><span class="s2">&gt; </span><span class="s1">votes</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">votes </span><span class="s2">= </span><span class="s1">votes</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+</pre>
+</body>
+</html>
