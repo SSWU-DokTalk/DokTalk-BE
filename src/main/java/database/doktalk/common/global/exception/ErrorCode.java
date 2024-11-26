@@ -20,7 +20,8 @@ public enum ErrorCode {
     BOOK_NOT_FOUND(HttpStatus.NOT_FOUND,"BOOK401","책을 찾을 수 없습니다."),
 
     //worldCup
-    WORLD_NOT_FOUND(HttpStatus.NOT_FOUND,"WORLD_CUP401","월드컵을 찾을 수 없습니다.");
+    WORLD_CUP_NOT_FOUND(HttpStatus.NOT_FOUND,"WORLD_CUP401","월드컵을 찾을 수 없습니다.");
+
 
     private final HttpStatus httpStatus;
     private final String code;

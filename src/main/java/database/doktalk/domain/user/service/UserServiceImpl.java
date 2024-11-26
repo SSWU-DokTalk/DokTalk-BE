@@ -16,10 +16,20 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserIdResponse SignUp(UserSignUpRequest request) {
+    public UserIdResponse signUp(UserSignUpRequest request) {
+        User user = userMapper.toEntity(request);
+        User savedUser = userRepository.save(user);
+        return new UserIdResponse(savedUser.getId(), savedUser.getUserId());
+    }
 
-        User user = userMapper.toUser(request);
-        userRepository.save(user);
-        return userMapper.toUserIdResponse(user);
+    @Override
+    public boolean signIn(String userId, String password) {
+        User user = userRepository.findByUserId(userId);
+        return user != null && user.getPassword().equals(password);
+    }
+
+    @Override
+    public User getUserDetails(String userId) {
+        return userRepository.findByUserId(userId);
     }
 }
