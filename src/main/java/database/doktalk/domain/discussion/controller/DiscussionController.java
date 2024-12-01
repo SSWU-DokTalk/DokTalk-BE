@@ -1,52 +1,47 @@
-package database.doktalk.domain.diary.controller;
+package database.doktalk.domain.discussion.controller;
 
+import database.doktalk.domain.book.dto.DiscussionBookDTO;
 import database.doktalk.domain.book.entity.Book;
 import database.doktalk.domain.diary.dto.DiaryDetailDTO;
 import database.doktalk.domain.diary.dto.DiaryListDTO;
 import database.doktalk.domain.diary.entity.Diary;
-import database.doktalk.domain.diary.service.DiaryService;
-import lombok.RequiredArgsConstructor;
+import database.doktalk.domain.discussion.entity.Discussion;
+import database.doktalk.domain.discussion.service.DiscussionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/diaries")
-public class DiaryController {
-
-    private final DiaryService diaryService;
+public class DiscussionController {
+    private final DiscussionService discussionService;
 
     // 검색 API
     @GetMapping("/search")
-    public ResponseEntity<List<Book>> searchBooks(@RequestParam String query) {
-        List<Book> books = diaryService.searchBooks(query);
+    public ResponseEntity<List<DiscussionBook>> searchBooks(@RequestParam String query) {
+        List<DiscussionBookDTO> books = discussionService.searchBooks(query);
         return ResponseEntity.ok(books);
     }
 
     // 독서감상문 작성 API
     @PostMapping
-    public ResponseEntity<Diary> createDiary(
+    public ResponseEntity<Discussion> createDiscussion(
             @RequestParam Long userId,
             @RequestParam String title,
             @RequestParam String bookTitle,
             @RequestParam String author,
             @RequestParam String publisher,
-            @RequestParam String bookCoverUrl,
             @RequestParam String content) {
 
-        Diary diary = Diary.builder()
+        Discussion discussion = Discussion.builder()
                 .userId(userId)
                 .title(title)
                 .bookTitle(bookTitle)
                 .author(author)
                 .publisher(publisher)
-                .bookCoverUrl(bookCoverUrl)
                 .content(content)
                 .build();
-        Diary savedDiary = diaryService.saveDiary(diary);
-        return ResponseEntity.ok(savedDiary);
+        Diary savedDiscussion = discussionService.saveDiscussion(discussion);
+        return ResponseEntity.ok(savedDiscussion);
     }
 
     @PatchMapping("/{diaryId}")
@@ -59,8 +54,8 @@ public class DiaryController {
             @RequestParam(required = false) String bookCoverUrl,
             @RequestParam(required = false) String content) {
 
-        Diary updatedDiary = diaryService.updateDiary(diaryId, title, bookTitle, author, publisher, bookCoverUrl, content);
-        return ResponseEntity.ok(updatedDiary);
+        Diary updatedDiscussion = discussionService.updateDiscussion(discussionId, title, bookTitle, author, publisher, content);
+        return ResponseEntity.ok(updatedDiscussion);
     }
 
     @DeleteMapping("/{diaryId}")
@@ -86,4 +81,3 @@ public class DiaryController {
 
 
 }
-

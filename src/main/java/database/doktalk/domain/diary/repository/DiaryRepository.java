@@ -16,4 +16,6 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     @Query("SELECT d " +
             "FROM Diary d WHERE d.userId = :userId")
     List<DiaryListDTO> findDiaryListByUserId(@Param("userId") Long userId);
+
+
 }

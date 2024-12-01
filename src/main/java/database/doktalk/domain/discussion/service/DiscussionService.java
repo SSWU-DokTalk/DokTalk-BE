@@ -1,11 +1,13 @@
-package database.doktalk.domain.diary.service;
+package database.doktalk.domain.discussion.service;
+
 
 import database.doktalk.domain.book.entity.Book;
 import database.doktalk.domain.book.repository.BookRepository;
 import database.doktalk.domain.diary.dto.DiaryDetailDTO;
 import database.doktalk.domain.diary.dto.DiaryListDTO;
 import database.doktalk.domain.diary.entity.Diary;
-import database.doktalk.domain.diary.repository.DiaryRepository;
+import database.doktalk.domain.discussion.entity.Discussion;
+import database.doktalk.domain.discussion.repository.DiscussionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 @Service
 @RequiredArgsConstructor
-public class DiaryService {
+public class DiscussionService {
 
 
-    private final DiaryRepository diaryRepository;
     private final BookRepository bookRepository;
+    private final DiscussionRepository discussionRepository;
 
 
 
@@ -26,43 +28,42 @@ public class DiaryService {
         return bookRepository.findBooksByKeyword(keyword);
     }
 
-    // 독서감상문 저장
-    public Diary saveDiary(Diary diary) {
-        return diaryRepository.save(diary);
+    // 토론글 저장
+    public Discussion saveDiscussion(Discussion discussion) {
+        return discussionRepository.save(discussion);
     }
 
 
-    public Diary updateDiary(Long diaryId, String title, String bookTitle, String author, String publisher, String bookCoverUrl, String content) {
-        Diary diary = diaryRepository.findById(diaryId)
-                .orElseThrow(() -> new IllegalArgumentException("Diary not found with id: " + diaryId));
+    public Discussion updateDiscussion(Long diaryId, String title, String bookTitle, String author, String publisher, String bookCoverUrl, String content) {
+        Discussion discussion = discussionRepository.findById(discussionId)
+                .orElseThrow(() -> new IllegalArgumentException("Discussion not found with id: " + discussionId));
 
-        if (title != null) diary.setTitle(title);
-        if (bookTitle != null) diary.setBookTitle(bookTitle);
-        if (author != null) diary.setAuthor(author);
-        if (publisher != null) diary.setPublisher(publisher);
-        if (bookCoverUrl != null) diary.setBookCoverUrl(bookCoverUrl);
-        if (content != null) diary.setContent(content);
+        if (title != null) discussion.setTitle(title);
+        if (bookTitle != null) discussion.setBookTitle(bookTitle);
+        if (author != null) discussion.setAuthor(author);
+        if (publisher != null) discussion.setPublisher(publisher);
+        if (content != null) discussion.setContent(content);
 
-        return diaryRepository.save(diary);
+        return discussionRepository.save(discussion);
     }
 
     public void deleteDiary(Long diaryId) {
-        Diary diary = diaryRepository.findById(diaryId)
+        Diary diary = discussionRepository.findById(diaryId)
                 .orElseThrow(() -> new IllegalArgumentException("Diary not found with id: " + diaryId));
 
-        diaryRepository.delete(diary);
+        discussionRepository.delete(diary);
     }
 
 
 
     // 사용자별 독서감상문 목록 조회
     public List<DiaryListDTO> getUserDiaryList(Long userId) {
-        return diaryRepository.findDiaryListByUserId(userId);
+        return discussionRepository.findDiaryListByUserId(userId);
     }
 
     // 글 상세조회
     public DiaryDetailDTO getDiaryDetail(Long diaryId) {
-        Diary diary = diaryRepository.findById(diaryId)
+        Diary diary = discussionRepository.findById(diaryId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 글을 찾을 수 없습니다."));
 
         String formattedCreatedAt = diary.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
