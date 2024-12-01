@@ -1,0 +1,12 @@
+package database.doktalk.domain.worldcup.dto.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+@Builder
+public class MatchIdResponse {
+    private Long id;
+}

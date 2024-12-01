@@ -1,7 +1,7 @@
 package database.doktalk.domain.book.entity;
 
 import database.doktalk.common.global.BaseEntity;
-import database.doktalk.domain.journal.entity.Journal;
+import database.doktalk.domain.diary.entity.Diary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,5 +33,5 @@ public class Book extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
-    private Journal journal;
+    private Diary diary;
 }

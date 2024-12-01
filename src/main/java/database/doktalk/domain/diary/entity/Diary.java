@@ -46,4 +46,6 @@ public class Diary {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
+    private int likeCount = 0;
 }
