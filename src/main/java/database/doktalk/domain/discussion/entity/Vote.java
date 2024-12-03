@@ -1,5 +1,6 @@
 package database.doktalk.domain.discussion.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import database.doktalk.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class Vote {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
+//    @JsonBackReference
     private Discussion discussion;
 
     @ManyToOne(fetch = FetchType.LAZY)

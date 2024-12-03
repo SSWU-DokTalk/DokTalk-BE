@@ -8,6 +8,8 @@ import database.doktalk.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -24,12 +26,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean signIn(String userId, String password) {
-        User user = userRepository.findByUserId(userId);
-        return user != null && user.getPassword().equals(password);
+        Optional<User> user = userRepository.findByUserId(userId); // Use Optional
+        return user.map(u -> u.getPassword().equals(password)).orElse(false); // Safe check
     }
 
     @Override
     public User getUserDetails(String userId) {
-        return userRepository.findByUserId(userId);
+        return userRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId)); // Explicit exception handling
     }
 }

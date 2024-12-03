@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class DiaryListDTO {
     private Long diaryId;        // 글 ID
-    private String bookTitle;    // 책 제목
     private String title;   // 글 제목
+    private String bookTitle;    // 책 제목
     private LocalDate createdAt; // 작성일
 }

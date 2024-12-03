@@ -1,18 +1,17 @@
 package database.doktalk.domain.discussion.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import database.doktalk.common.global.BaseEntity;
 import database.doktalk.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
@@ -22,20 +21,37 @@ public class Discussion extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    @Column(nullable = false)
+    private String title; // 글 제목
 
-    private String content;
+    @Column(nullable = false)
+    private String bookTitle; // 책 제목
+
+    @Column(nullable = false)
+    private String author; // 지은이
+
+    @Column(nullable = false)
+    private String publisher; // 출판사
+
+    @Lob
+    @Column(nullable = false)
+    private String content; // 글 내용
 
     private int approval = 0;
 
     private int opposite = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name="user_id")
     private User user;
 
     @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)
+//    @JsonManagedReference
     private List<Vote> votes = new ArrayList<>();
 
+
+    public Long getUserId() {
+        return this.user != null ? this.user.getId() : null;
+    }
 
 }

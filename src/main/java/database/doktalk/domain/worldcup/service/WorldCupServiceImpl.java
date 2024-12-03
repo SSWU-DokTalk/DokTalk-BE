@@ -26,7 +26,11 @@ public class WorldCupServiceImpl implements WorldCupService {
     private final WorldCupRepository worldCupRepository;
     private final WorldCupMapper worldCupMapper;
 
-    public List<WorldCupSummaryResponse> getWorldCups(){
+    /*
+     * 전체 월드컵 조회하기
+     */
+    @Override
+    public List<WorldCupSummaryResponse> getWorldCups() {
 
         return worldCupRepository.findAll()
                 .stream()
@@ -37,8 +41,9 @@ public class WorldCupServiceImpl implements WorldCupService {
     /*
      * 월드컵 세부사항 조회하기
      */
-    public WorldCupResponse getWorldCup(Long worldCupId){
-        WorldCup worldCup = worldCupRepository.findById(worldCupId).orElseThrow(()-> new CustomApiException(ErrorCode.WORLD_CUP_NOT_FOUND));
+    @Override
+    public WorldCupResponse getWorldCupDetail(Long worldCupId) {
+        WorldCup worldCup = worldCupRepository.findById(worldCupId).orElseThrow(() -> new CustomApiException(ErrorCode.WORLD_CUP_NOT_FOUND));
         List<WorldCupMatch> matches = worldCup.getMatches();
         List<BookSummaryResponse> books = matches.stream()
                 .flatMap(match -> Stream.of(match.getBook1(), match.getBook2())) // book1, book2를 추출
@@ -46,6 +51,7 @@ public class WorldCupServiceImpl implements WorldCupService {
                 .toList();
 
         return new WorldCupResponse(worldCup.getSubject(), books);
+    }
 }
 
 
