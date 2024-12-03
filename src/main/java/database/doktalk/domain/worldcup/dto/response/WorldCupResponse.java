@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Builder
-public class RoundResponse {
+public class WorldCupResponse {
     private String title;
     private List<BookSummaryResponse> books;
 }

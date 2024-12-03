@@ -22,6 +22,8 @@ public class WorldCup extends BaseEntity {
 
     private String subject;
 
+    private String coverImage;
+
     @OneToMany(mappedBy = "worldCup", cascade = CascadeType.ALL)
     private List<WorldCupMatch> matches;
 
