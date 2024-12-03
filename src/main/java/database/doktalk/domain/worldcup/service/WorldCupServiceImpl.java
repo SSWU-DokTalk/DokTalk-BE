@@ -68,12 +68,16 @@ public class WorldCupServiceImpl implements WorldCupService {
     /*
      * 월드컵 경기 생성
      */
-    public void createMatch(int roundNumber, Long bookId1, Long bookId2, Long worldCupId) {
+
+    public MatchIdResponse createMatch(int roundNumber, Long bookId1, Long bookId2, Long worldCupId) {
         WorldCup worldCup = worldCupRepository.findById(worldCupId).orElseThrow(()-> new CustomApiException(ErrorCode.WORLD_CUP_NOT_FOUND));
         Book book1 = bookRepository.findById(bookId1).orElseThrow(()->new CustomApiException(ErrorCode.BOOK_NOT_FOUND));
         Book book2 = bookRepository.findById(bookId2).orElseThrow(()->new CustomApiException(ErrorCode.BOOK_NOT_FOUND));
         WorldCupMatch newMatch = worldCupMapper.toWorldCupMatch(roundNumber, book1, book2, worldCup);
-        worldCupMatchRepository.save(newMatch);
+        WorldCupMatch savedMatch = worldCupMatchRepository.save(newMatch);
+
+        // savedMatch의 ID를 반환
+        return new MatchIdResponse(savedMatch.getId());
     }
 }
 

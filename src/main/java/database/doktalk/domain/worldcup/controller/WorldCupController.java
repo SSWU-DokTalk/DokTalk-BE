@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+
 @Tag(name = "월드컵 API", description = "월드컵 관련 API")
 @RestController
 @RequiredArgsConstructor
@@ -26,27 +27,29 @@ public class WorldCupController {
 
     @Operation(summary = "월드컵 생성 API")
     @PostMapping
-    public BaseResponse<WorldCupIdResponse> createWorldCup(@RequestBody @Valid WorldCupRequest request){
+    public BaseResponse<WorldCupIdResponse> createWorldCup(@RequestBody @Valid WorldCupRequest request) {
         return BaseResponse.onSuccess(worldCupService.createWorldCup(request));
     }
 
     @Operation(summary = "월드컵 다음 라운드 생성 API")
     @PostMapping("/next-round")
-    public BaseResponse<RoundResponse> createMatch(@RequestBody @Valid NextRoundRequest request){
+    public BaseResponse<RoundResponse> createNextRound(@RequestBody @Valid NextRoundRequest request) {
         return BaseResponse.onSuccess(worldCupService.createNextRound(request));
+    }
+
     @Operation(summary = "월드컵 경기 생성 API")
     @Parameters(value = {
-            @Parameter(name = "round", description = "생성할 매치 라운드(몇강인지)"),
-            @Parameter(name = "bookId1", description = "첫 번째 북 아이디" ),
-            @Parameter(name = "bookId2", description = "두 번째 북 아이디"),
-            @Parameter(name = "worldCupId", description = "속한 월드컵 아이디")
+            @Parameter(name = "round", description = "생성할 매치 라운드(몇강인지)", example = "16"),
+            @Parameter(name = "bookId1", description = "첫 번째 북 아이디", example = "123"),
+            @Parameter(name = "bookId2", description = "두 번째 북 아이디", example = "456"),
+            @Parameter(name = "worldCupId", description = "속한 월드컵 아이디", example = "789")
     })
     @PostMapping("/match")
     public BaseResponse<MatchIdResponse> createMatch(
-            @RequestParam(name = "round")  int round,
+            @RequestParam(name = "round") int round,
             @RequestParam(name = "bookId1") Long bookId1,
-            @RequestParam(name = "bookId1") Long bookId2,
-            @RequestParam(name = "worldCupId") Long worldCupId){
+            @RequestParam(name = "bookId2") Long bookId2,
+            @RequestParam(name = "worldCupId") Long worldCupId) {
         return BaseResponse.onSuccess(worldCupService.createMatch(round, bookId1, bookId2, worldCupId));
     }
 }
