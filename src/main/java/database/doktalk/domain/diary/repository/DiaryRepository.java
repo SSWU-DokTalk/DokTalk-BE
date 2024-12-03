@@ -14,6 +14,10 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     List<Diary> findByUserId(Long userId);
 
     @Query("SELECT d " +
-            "FROM Diary d WHERE d.userId = :userId")
+            "FROM Diary d WHERE d.user.Id = :userId")
     List<DiaryListDTO> findDiaryListByUserId(@Param("userId") Long userId);
+//
+//    @Query("SELECT new database.doktalk.domain.diary.dto.DiaryListDTO(d.id, d.title, d.bookTitle, d.createdAt) " +
+//            "FROM Diary d WHERE d.user.id = :userId")
+//    List<DiaryListDTO> findDiaryListByUserId(@Param("userId") Long userId);
 }

@@ -9,5 +9,5 @@ import lombok.Getter;
 @Builder
 public class BookSummaryResponse {
     private String title;
-    //private String url;// 이미지 url
+    private String coverImage;
 }

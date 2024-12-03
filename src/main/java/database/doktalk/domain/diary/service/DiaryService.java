@@ -6,6 +6,7 @@ import database.doktalk.domain.diary.dto.DiaryDetailDTO;
 import database.doktalk.domain.diary.dto.DiaryListDTO;
 import database.doktalk.domain.diary.entity.Diary;
 import database.doktalk.domain.diary.repository.DiaryRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,14 @@ public class DiaryService {
 
 
     private final DiaryRepository diaryRepository;
+    private final BookRepository bookRepository;
 
 
+
+    //책 검색
+    public List<Book> searchBooks(String keyword) {
+        return bookRepository.findBooksByKeyword(keyword);
+    }
 
     // 독서감상문 저장
     public Diary saveDiary(Diary diary) {
@@ -69,6 +76,18 @@ public class DiaryService {
                 diary.getContent(),
                 formattedCreatedAt
         );
+    }
+
+    //좋아요 기능
+    @Transactional
+    public Diary likeDiary(Long diaryId) {
+        Diary diary = diaryRepository.findById(diaryId)
+                .orElseThrow(() -> new IllegalArgumentException("Diary not found"));
+
+        // 좋아요 증가
+        diary.setLikeCount(diary.getLikeCount() + 1);
+
+        return diaryRepository.save(diary); // 변경된 diary 객체 저장
     }
 
 }

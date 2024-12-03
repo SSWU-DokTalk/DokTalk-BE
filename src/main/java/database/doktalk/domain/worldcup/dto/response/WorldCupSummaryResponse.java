@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 @AllArgsConstructor
-public class WorldCupIdResponse {
-    private long id;
+public class WorldCupSummaryResponse {
+    private Long worldCupId;
+    private String worldCupName;
+    private String coverImage;
 }

@@ -1,5 +1,6 @@
 package database.doktalk.domain.diary.entity;
 
+import database.doktalk.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -18,9 +19,6 @@ public class Diary {
 
     @Column(nullable = false)
     private String title; // 감상문 제목
-
-    @Column(nullable = false)
-    private Long userId; // 작성자 ID
 
     @Lob
     @Column(nullable = false)
@@ -41,6 +39,10 @@ public class Diary {
 
     @Column(updatable = false)
     private LocalDateTime createdAt; // 생성일
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn()
+    private User user; // 작성자 ID
 
     @PrePersist
     protected void onCreate() {
