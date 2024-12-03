@@ -2,6 +2,7 @@ package database.doktalk.domain.discussion.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import database.doktalk.common.global.BaseEntity;
+import database.doktalk.domain.discussionreview.entity.DiscussionReview;
 import database.doktalk.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,6 +45,9 @@ public class Discussion extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private User user;
+
+    @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)
+    private List<DiscussionReview> discussionReviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)
 //    @JsonManagedReference

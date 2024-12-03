@@ -2,6 +2,7 @@ package database.doktalk.domain.discussionreview.mapper;
 
 import database.doktalk.domain.discussion.entity.Discussion;
 import database.doktalk.domain.discussionreview.dto.request.DiscussionReviewRequest;
+import database.doktalk.domain.discussionreview.dto.response.DiscussionReviewResponse;
 import database.doktalk.domain.discussionreview.entity.DiscussionReview;
 import database.doktalk.domain.user.entity.User;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,15 @@ public class DiscussionReviewMapper {
                 .review(request.getReview())
                 .user(user)
                 .discussion(discussion)
+                .build();
+    }
+
+    public DiscussionReviewResponse toDiscussionReviewResponse(DiscussionReview discussionReview) {
+        return DiscussionReviewResponse.builder()
+                .Id(discussionReview.getId())
+                .review(discussionReview.getReview())
+                .userName(discussionReview.getUser().getName())
+                .likeCount(discussionReview.getLikeCount())
                 .build();
     }
 }

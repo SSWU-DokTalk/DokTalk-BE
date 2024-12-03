@@ -25,12 +25,12 @@ public class DiscussionReview {
 
     private LocalDateTime createdAt;
 
+    private int likeCount = 0;
+    
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
-    private int likeCount = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn

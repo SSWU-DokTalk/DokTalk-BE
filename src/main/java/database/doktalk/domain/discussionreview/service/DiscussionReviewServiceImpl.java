@@ -6,6 +6,7 @@ import database.doktalk.domain.discussion.entity.Discussion;
 import database.doktalk.domain.discussion.repository.DiscussionRepository;
 import database.doktalk.domain.discussionreview.dto.request.DiscussionReviewRequest;
 import database.doktalk.domain.discussionreview.dto.response.DiscussionReviewIdResponse;
+import database.doktalk.domain.discussionreview.dto.response.DiscussionReviewResponse;
 import database.doktalk.domain.discussionreview.entity.DiscussionReview;
 import database.doktalk.domain.discussionreview.mapper.DiscussionReviewMapper;
 import database.doktalk.domain.discussionreview.repository.DiscussionReviewRepository;
@@ -13,6 +14,8 @@ import database.doktalk.domain.user.entity.User;
 import database.doktalk.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +35,15 @@ public class DiscussionReviewServiceImpl implements DiscussionReviewService{
         );
 
         return new DiscussionReviewIdResponse(newDisCussionReview.getId());
+    }
+
+    @Override
+    public List<DiscussionReviewResponse> getDiscussionReviews(Long discussionId){
+
+        return discussionReviewRepository
+                .findByDiscussionId(discussionId)
+                .stream()
+                .map(discussionReviewMapper::toDiscussionReviewResponse)
+                .toList();
     }
 }
