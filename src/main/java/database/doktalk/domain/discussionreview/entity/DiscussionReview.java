@@ -1,4 +1,4 @@
-package database.doktalk.domain.review;
+package database.doktalk.domain.discussionreview.entity;
 
 import database.doktalk.domain.discussion.entity.Discussion;
 import database.doktalk.domain.user.entity.User;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Review {
+public class DiscussionReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
