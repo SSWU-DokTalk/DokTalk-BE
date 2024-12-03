@@ -40,8 +40,8 @@ public class Diary {
     @Column(updatable = false)
     private LocalDateTime createdAt; // 생성일
 
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn()
     private User user; // 작성자 ID
 
     @PrePersist

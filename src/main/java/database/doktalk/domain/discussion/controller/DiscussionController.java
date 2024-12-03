@@ -1,7 +1,11 @@
 package database.doktalk.domain.discussion.controller;
 
+import database.doktalk.common.global.BaseResponse;
 import database.doktalk.domain.book.entity.Book;
 import database.doktalk.domain.discussion.dto.DiscussionListDTO;
+import database.doktalk.domain.discussion.dto.request.DiscussionRequest;
+import database.doktalk.domain.discussion.dto.response.DiscussionDetailResponse;
+import database.doktalk.domain.discussion.dto.response.DiscussionIdResponse;
 import database.doktalk.domain.discussion.entity.Discussion;
 import database.doktalk.domain.discussion.service.DiscussionService;
 import org.springframework.http.ResponseEntity;
@@ -29,23 +33,9 @@ public class DiscussionController {
 
     // 토론글 작성 API
     @PostMapping
-    public ResponseEntity<Discussion> createDiscussion(
-            @RequestParam Long userId,
-            @RequestParam String title,
-            @RequestParam String bookTitle,
-            @RequestParam String author,
-            @RequestParam String publisher,
-            @RequestParam String content) {
-
-        Discussion discussion = Discussion.builder()
-                .title(title)
-                .bookTitle(bookTitle)
-                .author(author)
-                .publisher(publisher)
-                .content(content)
-                .build();
-        Discussion savedDiscussion = discussionService.saveDiscussion(discussion);
-        return ResponseEntity.ok(savedDiscussion);
+    public BaseResponse<DiscussionIdResponse> createDiscussion(
+            @RequestBody DiscussionRequest request) {
+        return BaseResponse.onSuccess(discussionService.saveDiscussion(request));
     }
 
     // 토론글 수정 API
@@ -79,9 +69,8 @@ public class DiscussionController {
 
     // 토론글 상세조회 API
     @GetMapping("/{discussionId}")
-    public ResponseEntity<Discussion> getDiscussion(@PathVariable Long discussionId) {
-        Discussion discussion = discussionService.getDiscussionDetail(discussionId);
-        return ResponseEntity.ok(discussion);
+    public BaseResponse<DiscussionDetailResponse> getDiscussion(@PathVariable Long discussionId) {
+        return BaseResponse.onSuccess(discussionService.getDiscussionDetail(discussionId));
     }
 
     // 찬성 투표 API

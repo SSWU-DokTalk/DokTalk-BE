@@ -1,10 +1,16 @@
 package database.doktalk.domain.discussion.service;
 
+import database.doktalk.common.global.exception.CustomApiException;
+import database.doktalk.common.global.exception.ErrorCode;
 import database.doktalk.domain.book.entity.Book;
 import database.doktalk.domain.book.repository.BookRepository;
 import database.doktalk.domain.discussion.dto.DiscussionListDTO;
+import database.doktalk.domain.discussion.dto.request.DiscussionRequest;
+import database.doktalk.domain.discussion.dto.response.DiscussionDetailResponse;
+import database.doktalk.domain.discussion.dto.response.DiscussionIdResponse;
 import database.doktalk.domain.discussion.entity.Discussion;
 import database.doktalk.domain.discussion.entity.Vote;
+import database.doktalk.domain.discussion.mapper.DiscussionMapper;
 import database.doktalk.domain.discussion.repository.DiscussionRepository;
 import database.doktalk.domain.discussion.repository.VoteRepository;
 import database.doktalk.domain.user.entity.User;
@@ -25,8 +31,7 @@ public class DiscussionService {
     private final DiscussionRepository discussionRepository;
     private final VoteRepository voteRepository;
     private final UserRepository userRepository;
-
-
+    private final DiscussionMapper discussionMapper;
 
     // 책 검색
     public List<Book> searchBooks(String keyword) {
@@ -34,8 +39,11 @@ public class DiscussionService {
     }
 
     // 토론글 저장
-    public Discussion saveDiscussion(Discussion discussion) {
-        return discussionRepository.save(discussion);
+    public DiscussionIdResponse saveDiscussion(DiscussionRequest request) {
+        User user = userRepository.findById(request.getUserId()).orElseThrow(()-> new CustomApiException(ErrorCode.USER_NOT_ADMIN));
+        Discussion newDiscussion = discussionMapper.toDiscussion(request, user);
+        discussionRepository.save(newDiscussion);
+        return new DiscussionIdResponse(newDiscussion.getId());
     }
 
     // 토론글 수정
@@ -81,9 +89,10 @@ public class DiscussionService {
     }
 
     // 토론글 상세 조회
-    public Discussion getDiscussionDetail(Long discussionId) {
-        return discussionRepository.findById(discussionId)
-                .orElseThrow(() -> new IllegalArgumentException("Discussion not found with id: " + discussionId));
+    public DiscussionDetailResponse getDiscussionDetail(Long discussionId) {
+        Discussion discussion = discussionRepository.findById(discussionId)
+                .orElseThrow(() -> new CustomApiException(ErrorCode.DISCUSSION_NOT_FOUND));
+         return discussionMapper.toDisCussionDetailResponse(discussion);
     }
 
     // 찬성 투표

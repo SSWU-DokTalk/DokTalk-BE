@@ -42,7 +42,7 @@ public class Discussion extends BaseEntity {
     private int opposite = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn
     private User user;
 
     @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)

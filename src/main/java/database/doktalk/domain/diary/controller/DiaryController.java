@@ -1,10 +1,14 @@
 package database.doktalk.domain.diary.controller;
 
+import database.doktalk.common.global.exception.CustomApiException;
+import database.doktalk.common.global.exception.ErrorCode;
 import database.doktalk.domain.book.entity.Book;
 import database.doktalk.domain.diary.dto.DiaryDetailDTO;
 import database.doktalk.domain.diary.dto.DiaryListDTO;
 import database.doktalk.domain.diary.entity.Diary;
 import database.doktalk.domain.diary.service.DiaryService;
+import database.doktalk.domain.user.entity.User;
+import database.doktalk.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,7 @@ import java.util.List;
 public class DiaryController {
 
     private final DiaryService diaryService;
+    private final UserRepository userRepository;
 
     // 검색 API
     @GetMapping("/search")
@@ -37,8 +42,10 @@ public class DiaryController {
             @RequestParam String bookCoverUrl,
             @RequestParam String content) {
 
+        User user = userRepository.findById(userId).orElseThrow(()-> new CustomApiException(ErrorCode.USER_NOT_FOUND));
+
         Diary diary = Diary.builder()
-                .userId(userId)
+                .user(user)
                 .title(title)
                 .bookTitle(bookTitle)
                 .author(author)
