@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "토론방 댓글 API", description = "토론방 댓글 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/world-cup")
+@RequestMapping("/discussion")
 public class DiscussionReviewController {
 
     private final DiscussionReviewService discussionReviewService;
