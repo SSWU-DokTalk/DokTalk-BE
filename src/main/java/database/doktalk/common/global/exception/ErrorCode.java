@@ -26,7 +26,10 @@ public enum ErrorCode {
     WORLD_CUP_NOT_FOUND(HttpStatus.NOT_FOUND,"WORLD_CUP401","월드컵을 찾을 수 없습니다."),
 
     //discussion
-    DISCUSSION_NOT_FOUND(HttpStatus.NOT_FOUND,"DISCUSSION_CUP401","토론을 찾을 수 없습니다.");
+    DISCUSSION_NOT_FOUND(HttpStatus.NOT_FOUND,"DISCUSSION_CUP401","토론을 찾을 수 없습니다."),
+
+    //diary
+    DIARY_NOT_FOUND(HttpStatus.NOT_FOUND,"DIARY_CUP401","기록장을 찾을 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

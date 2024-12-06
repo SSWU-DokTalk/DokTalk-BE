@@ -1,12 +1,19 @@
 package database.doktalk.domain.diary.controller;
 
+import database.doktalk.common.global.BaseResponse;
 import database.doktalk.common.global.exception.CustomApiException;
 import database.doktalk.common.global.exception.ErrorCode;
 import database.doktalk.domain.book.entity.Book;
 import database.doktalk.domain.diary.dto.DiaryDetailDTO;
 import database.doktalk.domain.diary.dto.DiaryListDTO;
+import database.doktalk.domain.diary.dto.request.DiaryRequest;
+import database.doktalk.domain.diary.dto.response.DiaryDetailResponse;
+import database.doktalk.domain.diary.dto.response.DiaryIdResponse;
 import database.doktalk.domain.diary.entity.Diary;
 import database.doktalk.domain.diary.service.DiaryService;
+import database.doktalk.domain.discussion.dto.request.DiscussionRequest;
+import database.doktalk.domain.discussion.dto.response.DiscussionDetailResponse;
+import database.doktalk.domain.discussion.dto.response.DiscussionIdResponse;
 import database.doktalk.domain.user.entity.User;
 import database.doktalk.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +24,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/diaries")
-@CrossOrigin(origins="http://localhost:8080")
+@RequestMapping("/api/diaries")
+@CrossOrigin(origins = "http://localhost:8080")
 public class DiaryController {
 
     private final DiaryService diaryService;
@@ -33,30 +40,12 @@ public class DiaryController {
 
     // 독서감상문 작성 API
     @PostMapping
-    public ResponseEntity<Diary> createDiary(
-            @RequestParam Long userId,
-            @RequestParam String title,
-            @RequestParam String bookTitle,
-            @RequestParam String author,
-            @RequestParam String publisher,
-            @RequestParam String bookCoverUrl,
-            @RequestParam String content) {
-
-        User user = userRepository.findById(userId).orElseThrow(()-> new CustomApiException(ErrorCode.USER_NOT_FOUND));
-
-        Diary diary = Diary.builder()
-                .user(user)
-                .title(title)
-                .bookTitle(bookTitle)
-                .author(author)
-                .publisher(publisher)
-                .bookCoverUrl(bookCoverUrl)
-                .content(content)
-                .build();
-        Diary savedDiary = diaryService.saveDiary(diary);
-        return ResponseEntity.ok(savedDiary);
+    public BaseResponse<DiaryIdResponse> createDiscussion(
+            @RequestBody DiaryRequest request) {
+        return BaseResponse.onSuccess(diaryService.saveDiary(request));
     }
 
+    //수정
     @PatchMapping("/{diaryId}")
     public ResponseEntity<Diary> updateDiary(
             @PathVariable Long diaryId,
@@ -67,7 +56,7 @@ public class DiaryController {
             @RequestParam(required = false) String bookCoverUrl,
             @RequestParam(required = false) String content) {
 
-        Diary updatedDiary = diaryService.updateDiary(diaryId, title, bookTitle, author, publisher, bookCoverUrl, content);
+        Diary updatedDiary = diaryService.updateDiary(diaryId, title, bookTitle, author, publisher,bookCoverUrl, content);
         return ResponseEntity.ok(updatedDiary);
     }
 
@@ -76,7 +65,6 @@ public class DiaryController {
         diaryService.deleteDiary(diaryId);
         return ResponseEntity.ok("Diary deleted successfully");
     }
-
 
     // 사용자 독서감상문 목록 API
     @GetMapping("/user/{userId}")
@@ -88,20 +76,16 @@ public class DiaryController {
         return ResponseEntity.ok(diaries);
     }
 
-
     // 글 상세조회
     @GetMapping("/{diaryId}")
-    public ResponseEntity<DiaryDetailDTO> getDiary(@PathVariable Long diaryId) {
-        DiaryDetailDTO diary = diaryService.getDiaryDetail(diaryId);
-        return ResponseEntity.ok(diary);
+    public BaseResponse<DiaryDetailResponse> getDiscussion(@PathVariable Long diaryId) {
+        return BaseResponse.onSuccess(diaryService.getDiaryDetail(diaryId));
     }
+
 
     @PatchMapping("/{diaryId}/like")
     public ResponseEntity<Diary> likeDiary(@PathVariable Long diaryId) {
         Diary updatedDiary = diaryService.likeDiary(diaryId);
         return ResponseEntity.ok(updatedDiary); // 업데이트된 diary 반환
     }
-
-
 }
-

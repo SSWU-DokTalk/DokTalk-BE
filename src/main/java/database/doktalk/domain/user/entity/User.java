@@ -1,10 +1,7 @@
 package database.doktalk.domain.user.entity;
 
 import database.doktalk.common.global.BaseEntity;
-import database.doktalk.domain.diary.entity.Diary;
-import database.doktalk.domain.discussion.entity.Discussion;
 import database.doktalk.domain.discussion.entity.Vote;
-import database.doktalk.domain.discussionreview.entity.DiscussionReview;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,15 +39,6 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Vote> votes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Diary> diaries = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Discussion> discussions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<DiscussionReview> discussionReviews = new ArrayList<>();
 
     // Getter and Setter
     public Long getId(){

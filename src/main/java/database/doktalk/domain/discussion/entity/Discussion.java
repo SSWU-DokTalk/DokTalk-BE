@@ -58,4 +58,5 @@ public class Discussion extends BaseEntity {
         return this.user != null ? this.user.getId() : null;
     }
 
+
 }

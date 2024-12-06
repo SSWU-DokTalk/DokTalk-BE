@@ -2,10 +2,12 @@ package database.doktalk.domain.diary.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class DiaryListDTO {
     private Long diaryId;        // 글 ID
