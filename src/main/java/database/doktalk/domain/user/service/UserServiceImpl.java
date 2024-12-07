@@ -1,5 +1,7 @@
 package database.doktalk.domain.user.service;
 
+import database.doktalk.common.global.exception.CustomApiException;
+import database.doktalk.common.global.exception.ErrorCode;
 import database.doktalk.domain.user.dto.request.UserSignUpRequest;
 import database.doktalk.domain.user.dto.response.UserIdResponse;
 import database.doktalk.domain.user.dto.response.UserMyPageResponse;
@@ -27,17 +29,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean signIn(String userId, String password) {
-        User user = userRepository.findByUserId(userId);
-        return user != null && user.getPassword().equals(password);
+    public UserIdResponse signIn(String userId, String password) {
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new CustomApiException(ErrorCode.USER_NOT_FOUND));
+        return new UserIdResponse(user.getId(), user.getUserId());
     }
 
     @Override
     public UserMyPageResponse getUserDetails(String userId) {
-        User user = userRepository.findByUserId(userId);
-        if (user == null) {
-            throw new RuntimeException("User not found: " + userId);
-        }
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new CustomApiException(ErrorCode.USER_NOT_FOUND));
 
         String imageUrl = user.getImage() != null ? user.getImage().getUrl() : null;
 
