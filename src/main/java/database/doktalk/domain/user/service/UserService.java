@@ -1,6 +1,7 @@
 package database.doktalk.domain.user.service;
 
 import database.doktalk.domain.user.dto.request.UserSignUpRequest;
+import database.doktalk.domain.user.dto.request.UserSingInRequest;
 import database.doktalk.domain.user.dto.response.UserIdResponse;
 import database.doktalk.domain.user.entity.User;
 import database.doktalk.domain.user.dto.response.UserMyPageResponse;
@@ -11,7 +12,7 @@ public interface UserService {
     UserIdResponse signUp(UserSignUpRequest request);
 
     // 로그인
-    UserIdResponse signIn(String userId, String password);
+    UserIdResponse signIn(UserSingInRequest request);
 
     // 마이페이지 조회
     UserMyPageResponse getUserDetails(String userId);
