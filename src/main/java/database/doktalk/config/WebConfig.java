@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // 모든 URL 패턴에 대해 CORS 허용
-        registry.addMapping("/api/**")
+        registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000") // 허용할 프론트엔드 URL
                 .allowedMethods("GET", "POST", "PUT", "DELETE","PATCH")
                 .allowedHeaders("*")
