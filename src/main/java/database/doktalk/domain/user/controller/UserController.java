@@ -2,6 +2,7 @@ package database.doktalk.domain.user.controller;
 
 import database.doktalk.common.global.BaseResponse;
 import database.doktalk.domain.user.dto.request.UserSignUpRequest;
+import database.doktalk.domain.user.dto.request.UserSingInRequest;
 import database.doktalk.domain.user.dto.response.UserIdResponse;
 import database.doktalk.domain.user.dto.response.UserMyPageResponse;
 import database.doktalk.domain.user.service.UserService;
@@ -35,8 +36,8 @@ public class UserController {
 
     // 로그인
     @PostMapping("/signin")
-    public BaseResponse<UserIdResponse> signIn(@RequestParam String userId, @RequestParam String password) {
-        return BaseResponse.onSuccess(userService.signIn(userId, password));
+    public BaseResponse<UserIdResponse> signIn(@RequestBody UserSingInRequest request) {
+        return BaseResponse.onSuccess(userService.signIn(request));
     }
 
     // 마이페이지

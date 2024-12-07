@@ -18,7 +18,7 @@ public enum ErrorCode {
 
     //user
     USER_NOT_FOUND(HttpStatus.NOT_FOUND,"USER401","사용자를 찾을 수 없습니다."),
-    
+    PASSWORD_NOT_VALID(HttpStatus.UNAUTHORIZED,"USER402","비밀번호가 틀렸습니다."),
     //book
     BOOK_NOT_FOUND(HttpStatus.NOT_FOUND,"BOOK401","책을 찾을 수 없습니다."),
 

@@ -3,6 +3,7 @@ package database.doktalk.domain.user.service;
 import database.doktalk.common.global.exception.CustomApiException;
 import database.doktalk.common.global.exception.ErrorCode;
 import database.doktalk.domain.user.dto.request.UserSignUpRequest;
+import database.doktalk.domain.user.dto.request.UserSingInRequest;
 import database.doktalk.domain.user.dto.response.UserIdResponse;
 import database.doktalk.domain.user.dto.response.UserMyPageResponse;
 import database.doktalk.domain.user.entity.User;
@@ -29,8 +30,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserIdResponse signIn(String userId, String password) {
-        User user = userRepository.findByUserId(userId).orElseThrow(() -> new CustomApiException(ErrorCode.USER_NOT_FOUND));
+    public UserIdResponse signIn(UserSingInRequest request) {
+        User user = userRepository.findByUserId(request.getUserId()).orElseThrow(() -> new CustomApiException(ErrorCode.USER_NOT_FOUND));
+        if(!user.getPassword().equals(request.getPassword())) {
+            throw new CustomApiException(ErrorCode.PASSWORD_NOT_VALID);
+        }
+
         return new UserIdResponse(user.getId(), user.getUserId());
     }
 
