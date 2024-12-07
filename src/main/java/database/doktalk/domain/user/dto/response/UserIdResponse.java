@@ -11,8 +11,4 @@ import lombok.NoArgsConstructor;
 public class UserIdResponse {
     private Long id;
     private String userId;
-
-    public UserIdResponse(String userId){
-        this.userId=userId;
-    }
 }

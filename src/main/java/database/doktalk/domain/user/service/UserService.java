@@ -11,7 +11,7 @@ public interface UserService {
     UserIdResponse signUp(UserSignUpRequest request);
 
     // 로그인
-    boolean signIn(String userId, String password);
+    UserIdResponse signIn(String userId, String password);
 
     // 마이페이지 조회
     UserMyPageResponse getUserDetails(String userId);
