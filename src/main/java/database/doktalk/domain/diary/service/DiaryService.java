@@ -94,9 +94,13 @@ public class DiaryService {
         Diary diary = diaryRepository.findById(diaryId)
                 .orElseThrow(() -> new IllegalArgumentException("Diary not found with id: " + diaryId));
 
+        if (diary.getLikeCount() == null) {
+            diary.setLikeCount(0);  // 초기 값 설정
+        }
         diary.setLikeCount(diary.getLikeCount() + 1); // 좋아요 증가
         return diaryRepository.save(diary);
     }
+
 
     //게시판 모든 기록장 조회
     @Transactional
