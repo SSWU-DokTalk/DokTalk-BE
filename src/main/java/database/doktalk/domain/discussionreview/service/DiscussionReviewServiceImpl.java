@@ -42,7 +42,7 @@ public class DiscussionReviewServiceImpl implements DiscussionReviewService{
     public List<DiscussionReviewResponse> getDiscussionReviews(Long discussionId){
 
         return discussionReviewRepository
-                .findByDiscussionId(discussionId)
+                .findAllByDiscussionId(discussionId)
                 .stream()
                 .map(discussionReviewMapper::toDiscussionReviewResponse)
                 .toList();
