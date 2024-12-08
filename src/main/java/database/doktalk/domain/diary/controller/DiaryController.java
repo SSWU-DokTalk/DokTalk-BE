@@ -4,6 +4,7 @@ import database.doktalk.common.global.BaseResponse;
 import database.doktalk.common.global.exception.CustomApiException;
 import database.doktalk.common.global.exception.ErrorCode;
 import database.doktalk.domain.book.entity.Book;
+import database.doktalk.domain.diary.dto.DiaryBoardDTO;
 import database.doktalk.domain.diary.dto.DiaryDetailDTO;
 import database.doktalk.domain.diary.dto.DiaryListDTO;
 import database.doktalk.domain.diary.dto.request.DiaryRequest;
@@ -16,6 +17,7 @@ import database.doktalk.domain.discussion.dto.response.DiscussionDetailResponse;
 import database.doktalk.domain.discussion.dto.response.DiscussionIdResponse;
 import database.doktalk.domain.user.entity.User;
 import database.doktalk.domain.user.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -87,5 +89,11 @@ public class DiaryController {
     public ResponseEntity<Diary> likeDiary(@PathVariable Long diaryId) {
         Diary updatedDiary = diaryService.likeDiary(diaryId);
         return ResponseEntity.ok(updatedDiary); // 업데이트된 diary 반환
+    }
+
+    @Operation(summary = "게시판 리스트 조회 api")
+    @GetMapping("/board")
+    public List<DiaryBoardDTO> getBoardDiaries() {
+        return diaryService.getBoardDiaries();
     }
 }
