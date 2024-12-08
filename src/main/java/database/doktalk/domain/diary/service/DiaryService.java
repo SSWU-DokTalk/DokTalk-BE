@@ -4,6 +4,7 @@ import database.doktalk.common.global.exception.CustomApiException;
 import database.doktalk.common.global.exception.ErrorCode;
 import database.doktalk.domain.book.entity.Book;
 import database.doktalk.domain.book.repository.BookRepository;
+import database.doktalk.domain.diary.dto.DiaryBoardDTO;
 import database.doktalk.domain.diary.dto.DiaryDetailDTO;
 import database.doktalk.domain.diary.dto.DiaryListDTO;
 import database.doktalk.domain.diary.dto.request.DiaryRequest;
@@ -95,5 +96,13 @@ public class DiaryService {
 
         diary.setLikeCount(diary.getLikeCount() + 1); // 좋아요 증가
         return diaryRepository.save(diary);
+    }
+
+    //게시판 모든 기록장 조회
+    public List<DiaryBoardDTO> getBoardDiaries() {
+        List<Diary> diaries = diaryRepository.findAll();  // 모든 Diary 가져오기
+        return diaries.stream()
+                .map(diaryMapper::toDiaryBoardDTO)  // Mapper 사용하여 변환
+                .collect(Collectors.toList());  // 리스트로 반환
     }
 }
