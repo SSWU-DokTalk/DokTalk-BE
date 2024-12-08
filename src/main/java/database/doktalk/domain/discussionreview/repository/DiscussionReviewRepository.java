@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface DiscussionReviewRepository extends JpaRepository<DiscussionReview, Long> {
-    List<DiscussionReview> findByDiscussionId(Long discussionId);
+    List<DiscussionReview> findAllByDiscussionId(Long discussionId);
 }
