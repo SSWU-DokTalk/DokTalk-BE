@@ -49,5 +49,6 @@ public class Diary {
         this.createdAt = LocalDateTime.now();
     }
 
+    @Column(nullable = false)
     private Integer likeCount = 0;
 }
