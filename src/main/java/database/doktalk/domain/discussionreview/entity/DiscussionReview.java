@@ -25,7 +25,7 @@ public class DiscussionReview {
 
     private LocalDateTime createdAt;
 
-    private int likeCount = 0;
+    private Integer likeCount = 0;
     
     @PrePersist
     protected void onCreate() {

@@ -15,5 +15,5 @@ public class DiaryDetailResponse {
     private String publisher;    // 출판사
     private String bookCoverUrl; // 책 표지 URL
     private String content;      // 글 내용
-    private int likeCount;
+    private Integer likeCount;
 }

@@ -49,5 +49,5 @@ public class Diary {
         this.createdAt = LocalDateTime.now();
     }
 
-    private int likeCount = 0;
+    private Integer likeCount = 0;
 }
