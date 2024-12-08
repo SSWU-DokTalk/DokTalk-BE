@@ -44,7 +44,7 @@ public class DiaryController {
 
     // 독서감상문 작성 API
     @PostMapping
-    public BaseResponse<DiaryIdResponse> createDiscussion(
+    public BaseResponse<DiaryIdResponse> createDiary(
             @RequestBody DiaryRequest request) {
         return BaseResponse.onSuccess(diaryService.saveDiary(request));
     }
