@@ -6,6 +6,7 @@ import database.doktalk.domain.diary.dto.response.DiaryDetailResponse;
 import database.doktalk.domain.diary.entity.Diary;
 import database.doktalk.domain.user.entity.User;
 import org.springframework.stereotype.Component;
+import database.doktalk.domain.diary.dto.DiaryBoardDTO;
 
 @Component
 public class DiaryMapper {
@@ -42,6 +43,15 @@ public class DiaryMapper {
                 diary.getTitle(),
                 diary.getBookTitle(),
                 diary.getCreatedAt().toLocalDate()  // 작성일 처리
+        );
+    }
+
+    // Diary 엔티티 -> DiaryBoardDTO 변환 (추가된 메서드)
+    public DiaryBoardDTO toDiaryBoardDTO(Diary diary) {
+        return new DiaryBoardDTO(
+                diary.getTitle(),
+                diary.getBookTitle(),
+                diary.getUser() != null ? diary.getUser().getUserId() : null
         );
     }
 }
