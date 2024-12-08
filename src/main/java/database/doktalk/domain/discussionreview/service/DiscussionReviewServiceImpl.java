@@ -20,10 +20,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DiscussionReviewServiceImpl implements DiscussionReviewService{
-    private DiscussionReviewRepository discussionReviewRepository;
-    private DiscussionReviewMapper discussionReviewMapper;
-    private UserRepository userRepository;
-    private DiscussionRepository discussionRepository;
+    private final DiscussionReviewRepository discussionReviewRepository;
+    private final DiscussionReviewMapper discussionReviewMapper;
+    private final UserRepository userRepository;
+    private final DiscussionRepository discussionRepository;
+
 
 
     @Override
