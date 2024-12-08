@@ -11,7 +11,6 @@ import java.util.List;
 
 // DiscussionRepository.java
 
-@Repository
 public interface DiscussionRepository extends JpaRepository<Discussion, Long> {
 
     // 사용자 ID (Long 타입으로 User 엔티티의 id를 기준으로)로 토론글 검색
