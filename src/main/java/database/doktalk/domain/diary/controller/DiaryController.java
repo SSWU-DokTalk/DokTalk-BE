@@ -11,6 +11,7 @@ import database.doktalk.domain.diary.dto.request.DiaryRequest;
 import database.doktalk.domain.diary.dto.response.DiaryDetailResponse;
 import database.doktalk.domain.diary.dto.response.DiaryIdResponse;
 import database.doktalk.domain.diary.entity.Diary;
+import database.doktalk.domain.diary.mapper.DiaryMapper;
 import database.doktalk.domain.diary.service.DiaryService;
 import database.doktalk.domain.discussion.dto.request.DiscussionRequest;
 import database.doktalk.domain.discussion.dto.response.DiscussionDetailResponse;
@@ -32,6 +33,7 @@ public class DiaryController {
 
     private final DiaryService diaryService;
     private final UserRepository userRepository;
+    private final DiaryMapper diaryMapper;
 
     // 검색 API
     @GetMapping("/search")
@@ -86,9 +88,9 @@ public class DiaryController {
 
 
     @PatchMapping("/{diaryId}/like")
-    public ResponseEntity<Diary> likeDiary(@PathVariable Long diaryId) {
+    public ResponseEntity<DiaryDetailResponse> likeDiary(@PathVariable Long diaryId) {
         Diary updatedDiary = diaryService.likeDiary(diaryId);
-        return ResponseEntity.ok(updatedDiary); // 업데이트된 diary 반환
+        return ResponseEntity.ok(diaryMapper.toDiaryDetailResponse(updatedDiary)); // 업데이트된 diary 반환
     }
 
     @Operation(summary = "게시판 리스트 조회 api")
