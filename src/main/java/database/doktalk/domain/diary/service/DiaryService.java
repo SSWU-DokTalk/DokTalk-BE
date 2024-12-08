@@ -99,6 +99,7 @@ public class DiaryService {
     }
 
     //게시판 모든 기록장 조회
+    @Transactional
     public List<DiaryBoardDTO> getBoardDiaries() {
         List<Diary> diaries = diaryRepository.findAll();  // 모든 Diary 가져오기
         return diaries.stream()

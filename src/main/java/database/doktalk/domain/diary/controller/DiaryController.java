@@ -93,7 +93,7 @@ public class DiaryController {
 
     @Operation(summary = "게시판 리스트 조회 api")
     @GetMapping("/board")
-    public List<DiaryBoardDTO> getBoardDiaries() {
-        return diaryService.getBoardDiaries();
+    public BaseResponse<List<DiaryBoardDTO>> getDiaryBoard(@RequestParam Long diaryId) {
+        return BaseResponse.onSuccess(diaryService.getBoardDiaries());
     }
 }
