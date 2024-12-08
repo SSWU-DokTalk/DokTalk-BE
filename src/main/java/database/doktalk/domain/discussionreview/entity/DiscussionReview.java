@@ -23,15 +23,6 @@ public class DiscussionReview {
 
     private String review;
 
-    private LocalDateTime createdAt;
-
-    private Integer likeCount = 0;
-    
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Discussion discussion;

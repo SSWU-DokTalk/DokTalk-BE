@@ -23,7 +23,6 @@ public class DiscussionReviewMapper {
                 .Id(discussionReview.getId())
                 .review(discussionReview.getReview())
                 .userName(discussionReview.getUser().getName())
-                .likeCount(discussionReview.getLikeCount())
                 .build();
     }
 }
