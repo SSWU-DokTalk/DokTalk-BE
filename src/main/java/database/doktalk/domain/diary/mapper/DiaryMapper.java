@@ -51,7 +51,8 @@ public class DiaryMapper {
         return new DiaryBoardDTO(
                 diary.getTitle(),
                 diary.getBookTitle(),
-                diary.getUser() != null ? diary.getUser().getUserId() : null
+                diary.getUser() != null ? diary.getUser().getUserId() : null,
+                diary.getId()
         );
     }
 }
