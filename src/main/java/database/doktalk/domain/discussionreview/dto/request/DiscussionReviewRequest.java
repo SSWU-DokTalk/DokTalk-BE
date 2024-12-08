@@ -9,5 +9,5 @@ import lombok.*;
 public class DiscussionReviewRequest {
     private String review;
     private Long userId;
-    private Long DiscussionId;
+    private Long discussionId;
 }
