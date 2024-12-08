@@ -10,6 +10,5 @@ import lombok.Getter;
 public class DiscussionReviewResponse {
     private Long Id;
     private String review;
-    private int likeCount;
     private String userName;
 }
