@@ -11,6 +11,7 @@ import database.doktalk.domain.diary.dto.DiaryBoardDTO;
 @Component
 public class DiaryMapper {
 
+
     // DiaryRequest -> Diary 엔티티 변환
     public Diary toDiary(DiaryRequest request, User user) {
         return Diary.builder()
