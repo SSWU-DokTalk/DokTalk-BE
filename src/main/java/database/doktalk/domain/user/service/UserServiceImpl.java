@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserIdResponse signIn(UserSingInRequest request) {
-        User user = userRepository.findByUserId(request.getUserId()).orElseThrow(() -> new CustomApiException(ErrorCode.USER_NOT_FOUND));
+        User user = userRepository.findByUserId(request.getUserId()).orElseThrow(() ->
+                new CustomApiException(ErrorCode.USER_NOT_FOUND));
         if(!user.getPassword().equals(request.getPassword())) {
             throw new CustomApiException(ErrorCode.PASSWORD_NOT_VALID);
         }
@@ -41,7 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserMyPageResponse getUserDetails(String userId) {
-        User user = userRepository.findByUserId(userId).orElseThrow(() -> new CustomApiException(ErrorCode.USER_NOT_FOUND));
+        User user = userRepository.findByUserId(userId).orElseThrow(() ->
+                new CustomApiException(ErrorCode.USER_NOT_FOUND));
 
         String imageUrl = user.getImage() != null ? user.getImage().getUrl() : null;
 

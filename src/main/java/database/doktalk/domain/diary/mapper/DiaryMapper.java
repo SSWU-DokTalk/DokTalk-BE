@@ -22,6 +22,7 @@ public class DiaryMapper {
                 .publisher(request.getPublisher())
                 .bookCoverUrl(request.getBookCoverUrl())
                 .user(user)
+                .likeCount(0)
                 .build();
     }
 
