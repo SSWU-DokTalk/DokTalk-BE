@@ -12,6 +12,7 @@ import database.doktalk.domain.discussionreview.mapper.DiscussionReviewMapper;
 import database.doktalk.domain.discussionreview.repository.DiscussionReviewRepository;
 import database.doktalk.domain.user.entity.User;
 import database.doktalk.domain.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,7 @@ public class DiscussionReviewServiceImpl implements DiscussionReviewService{
     }
 
     @Override
+    @Transactional
     public List<DiscussionReviewResponse> getDiscussionReviews(Long discussionId){
 
         return discussionReviewRepository
