@@ -11,4 +11,5 @@ public class DiaryRequest {
     private String bookCoverUrl;
     private String content;
     private Long userId;
+    private Integer likeCount = 0;
 }
