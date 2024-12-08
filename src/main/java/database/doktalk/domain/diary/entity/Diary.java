@@ -37,7 +37,7 @@ public class Diary {
     @Column(nullable = true)
     private String bookCoverUrl; // 책 표지 URL
 
-    @Column(updatable = false)
+    @Column(nullable = false)
     private LocalDateTime createdAt; // 생성일
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,7 +46,9 @@ public class Diary {
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();  // 현재 시간으로 설정
+        }
     }
 
     @Column(nullable = false)
